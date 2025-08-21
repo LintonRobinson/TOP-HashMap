@@ -68,6 +68,22 @@ class HashMap {
      
     }
 
+    remove(key) {
+        const bucketIndex = this.hash(key);
+        if(this.buckets[bucketIndex]) {
+            const keyIndex = this.buckets[bucketIndex].findListKeyIndex(key)
+            if(!this.buckets[bucketIndex].findListKeyIndex(key)) {
+                this.buckets[bucketIndex].removeNodeAt(keyIndex);
+                return true;
+            } else {
+               return false;
+            }
+        } else {
+            console.log('This null returned')
+            return false
+        }
+    };
+
 
 
 }
