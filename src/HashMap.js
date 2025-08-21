@@ -52,6 +52,22 @@ class HashMap {
         }
     };
 
+    has(key) {
+        const bucketIndex = this.hash(key);
+        if(this.buckets[bucketIndex]) {
+            const keyIndex = this.buckets[bucketIndex].findListKeyIndex(key)
+            if(!this.buckets[bucketIndex].findListKeyIndex(key)) {
+                return true;
+            } else {
+               return false; 
+            }
+        } else {
+            console.log('This one being returned')
+            return false;
+        }        
+     
+    }
+
 
 
 }

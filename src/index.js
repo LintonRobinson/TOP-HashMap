@@ -11,3 +11,4 @@ hashMap.set('people','Linton Joshua Robinson');
 hashMap.set('amazing','Hannah Rutti');
 console.log(hashMap.set('people','Linton Joshua Robinson'));
 console.log('getting people',hashMap.get('test'));
+console.log('hash map has Josh',hashMap.has('amazing'));
