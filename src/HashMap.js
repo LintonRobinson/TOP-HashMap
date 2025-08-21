@@ -4,7 +4,7 @@ import LinkedList from "hashmap-linked-list";
 const linkedList = new LinkedList().appendNode()
 class HashMap {
     constructor() {
-        this.buckets = new Array(16);
+        this.buckets = new Array(16).fill(null);
         this.loadFactor = 0.8;
         this.capacity = 16;
     };
@@ -19,7 +19,7 @@ class HashMap {
         return hashCode;
     }
 
-    set(key, value) {
+    setKey(key, value) {
         const bucketIndex = this.hash(key);
         if(!this.buckets[bucketIndex]) {     
             this.buckets[bucketIndex] = new LinkedList();
@@ -37,7 +37,7 @@ class HashMap {
         return this.buckets;
     };
 
-    get(key) {
+    getKey(key) {
         const bucketIndex = this.hash(key);
         if(this.buckets[bucketIndex]) {
             const keyIndex = this.buckets[bucketIndex].findListKeyIndex(key)
@@ -52,7 +52,7 @@ class HashMap {
         }
     };
 
-    has(key) {
+    hasKey(key) {
         const bucketIndex = this.hash(key);
         if(this.buckets[bucketIndex]) {
             const keyIndex = this.buckets[bucketIndex].findListKeyIndex(key)
@@ -68,12 +68,13 @@ class HashMap {
      
     }
 
-    remove(key) {
+    removeKey(key) {
         const bucketIndex = this.hash(key);
         if(this.buckets[bucketIndex]) {
             const keyIndex = this.buckets[bucketIndex].findListKeyIndex(key)
             if(!this.buckets[bucketIndex].findListKeyIndex(key)) {
                 this.buckets[bucketIndex].removeNodeAt(keyIndex);
+                if (this.buckets[bucketIndex].head === null) this.buckets[bucketIndex] = null;
                 return true;
             } else {
                return false;
