@@ -9,4 +9,5 @@ const hashMap = new HashMap();
 hashMap.buckets.length = 16
 
 hashMap.set('people','Linton Joshua Robinson');
+hashMap.set('amazing','Hannah Rutti');
 console.log(hashMap.set('people','Linton Joshua Robinson'));

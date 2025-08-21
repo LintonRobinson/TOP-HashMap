@@ -21,14 +21,27 @@ class HashMap {
 
     set(key, value) {
         const bucketIndex = this.hash(key);
-        if(!this.buckets[bucketIndex]) {
-          this.buckets[bucketIndex] = new LinkedList();
-          this.buckets[bucketIndex].appendNode(bucketIndex,key,value);
+        if(!this.buckets[bucketIndex]) {     
+            this.buckets[bucketIndex] = new LinkedList();
+            this.buckets[bucketIndex].appendNode(bucketIndex,key,value);
         } else {
-          this.buckets[bucketIndex].appendNode(bucketIndex,key,value);
+            if (this.buckets[bucketIndex].listContainsKey(key)) {
+                const duplicateKeyIndex = this.buckets[bucketIndex].findListKeyIndex(key);
+                this.buckets[bucketIndex].removeNodeAt(duplicateKeyIndex);
+                this.buckets[bucketIndex].appendNode(bucketIndex,key,value);   
+            } else {
+                this.buckets[bucketIndex].appendNode(bucketIndex,key,value);
+            };
+            
         };  
 
         return this.buckets;
+    };
+
+    get(key) {
+        for (let i = 0; i < this.buckets.length; i++) {
+            if (this.buckets[i].key === key) return this.buckets[i].value;
+        };
     };
 
 
