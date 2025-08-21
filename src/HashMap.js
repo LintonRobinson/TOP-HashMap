@@ -4,8 +4,8 @@ import LinkedList from "hashmap-linked-list";
 const linkedList = new LinkedList().appendNode()
 class HashMap {
     constructor() {
-        this.buckets = [];
-        this.loadFactor;
+        this.buckets = new Array(16);
+        this.loadFactor = 0.8;
         this.capacity = 16;
     };
 
@@ -31,17 +31,25 @@ class HashMap {
                 this.buckets[bucketIndex].appendNode(bucketIndex,key,value);   
             } else {
                 this.buckets[bucketIndex].appendNode(bucketIndex,key,value);
-            };
-            
+            }; 
         };  
 
         return this.buckets;
     };
 
     get(key) {
-        for (let i = 0; i < this.buckets.length; i++) {
-            if (this.buckets[i].key === key) return this.buckets[i].value;
-        };
+        const bucketIndex = this.hash(key);
+        if(this.buckets[bucketIndex]) {
+            const keyIndex = this.buckets[bucketIndex].findListKeyIndex(key)
+            if(!this.buckets[bucketIndex].findListKeyIndex(key)) {
+                return this.buckets[bucketIndex].getNodeAtIndex(keyIndex).value;
+            } else {
+               return null 
+            }
+        } else {
+            console.log('This null returned')
+            return null
+        }
     };
 
 
