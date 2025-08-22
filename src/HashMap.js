@@ -110,6 +110,22 @@ class HashMap {
         return hashMapKeys;
     };
 
+    returnValuesArray() {
+        let hashMapKeys = [];
+        for (let i = 0; i < this.buckets.length; i++) {
+            if (this.buckets[i]) {
+                let currentNode = this.buckets[i].head
+                while (currentNode) {
+                    hashMapKeys.push(currentNode.value);
+                    currentNode = currentNode.nextNode;
+                }
+            }
+        }
+        return hashMapKeys;
+    };
+
+
+
 
 
 

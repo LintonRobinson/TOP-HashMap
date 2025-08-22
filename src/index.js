@@ -15,3 +15,5 @@ console.log('getting people',hashMap.getKey('test'));
 console.log('hash map has Josh',hashMap.hasKey('amazing'));
 console.log('len',hashMap.lengthOfHashMap())
 console.log('key array',hashMap.returnKeysArray())
+console.log('value array',hashMap.returnValuesArray())
+
