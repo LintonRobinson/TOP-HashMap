@@ -24,18 +24,27 @@ class HashMap {
         const bucketIndex = this.hash(key);
         if(!this.buckets[bucketIndex]) {     
             this.buckets[bucketIndex] = new LinkedList();
-            this.buckets[bucketIndex].appendNode(bucketIndex,key,value);
+            this.buckets[bucketIndex].prependNode(bucketIndex,key,value);
             this.size++;
         } else {
             if (this.buckets[bucketIndex].listContainsKey(key)) {
                 const duplicateKeyIndex = this.buckets[bucketIndex].findListKeyIndex(key);
                 this.buckets[bucketIndex].removeNodeAt(duplicateKeyIndex);
-                this.buckets[bucketIndex].appendNode(bucketIndex,key,value);   
+                this.buckets[bucketIndex].prependNode(bucketIndex,key,value);   
             } else {
-                this.buckets[bucketIndex].appendNode(bucketIndex,key,value);
+                this.buckets[bucketIndex].prependNode(bucketIndex,key,value);
                 this.size++;
             }; 
         };  
+        
+        if (this.size > (this.loadFactor * this.capacity)) {
+            this.capacity = this.capacity * 2;
+            const hashMapEntries = this.returnHashMapEntries();
+            this.clearHashMap();
+            for (let i = 0; i < hashMapEntries.length; i++) {
+               this.setKey(hashMapEntries[i][0],hashMapEntries[i][1]);
+            };
+        };
 
         return this.buckets;
     };
@@ -47,12 +56,11 @@ class HashMap {
             if(!this.buckets[bucketIndex].findListKeyIndex(key)) {
                 return this.buckets[bucketIndex].getNodeAtIndex(keyIndex).value;
             } else {
-               return null 
+               return null;
             }
         } else {
-            console.log('This null returned')
-            return null
-        }
+            return null;
+        };
     };
 
     hasKey(key) {
@@ -62,10 +70,9 @@ class HashMap {
             if(!this.buckets[bucketIndex].findListKeyIndex(key)) {
                 return true;
             } else {
-               return false; 
-            }
+                return false; 
+            };
         } else {
-            console.log('This one being returned')
             return false;
         }        
      
@@ -82,9 +89,9 @@ class HashMap {
                 return true;
             } else {
                return false;
-            }
+            };
         } else {
-            return false
+            return false;
         }
     };
 
@@ -92,8 +99,9 @@ class HashMap {
         return this.size;
     };
 
-    clear() {
-        this.buckets = new Array(16).fill(null);
+    clearHashMap() {
+        this.buckets = new Array(this.capacity).fill(null);
+        this.size = 0;
     };
 
    returnKeysArray() {
@@ -102,7 +110,7 @@ class HashMap {
             if (this.buckets[i]) {
                 let currentNode = this.buckets[i].head
                 while (currentNode) {
-                     hashMapKeys.push(currentNode.key)
+                    hashMapKeys.push(currentNode.key)
                     currentNode = currentNode.nextNode;
                 }
             }
@@ -111,7 +119,7 @@ class HashMap {
     };
 
     returnValuesArray() {
-        let hashMapKeys = [];
+        const hashMapKeys = [];
         for (let i = 0; i < this.buckets.length; i++) {
             if (this.buckets[i]) {
                 let currentNode = this.buckets[i].head
@@ -123,6 +131,17 @@ class HashMap {
         }
         return hashMapKeys;
     };
+
+    returnHashMapEntries() {
+        const hashMapEntries = [];
+        const hashMapKeys = this.returnKeysArray();
+        const hashMapValues = this.returnValuesArray();
+        for (let i = 0;i < hashMapKeys.length; i++) {
+            hashMapEntries[i] = [hashMapKeys[i], hashMapValues[i]]
+        }
+        return hashMapEntries;
+
+    }
 
 
 

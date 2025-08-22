@@ -7,13 +7,22 @@ import HashMap from './HashMap.js';
 
 const hashMap = new HashMap();
 
-hashMap.setKey('people','Linton Joshua Robinson');
-hashMap.setKey('coding','Linton Joshua Robinson');
-//hashMap.removeKey('people')
-console.log(hashMap.setKey('amazing','Hannah Rutti'));
-console.log('getting people',hashMap.getKey('test'));
-console.log('hash map has Josh',hashMap.hasKey('amazing'));
-console.log('len',hashMap.lengthOfHashMap())
-console.log('key array',hashMap.returnKeysArray())
-console.log('value array',hashMap.returnValuesArray())
+ hashMap.setKey('apple', 'red')
+ hashMap.setKey('banana', 'yellow')
+ hashMap.setKey('carrot', 'orange')
+ hashMap.setKey('dog', 'brown')
+ hashMap.setKey('elephant', 'gray')
+ hashMap.setKey('frog', 'green')
+ hashMap.setKey('grape', 'purple')
+ hashMap.setKey('hat', 'black')
+ hashMap.setKey('ice cream', 'white')
+ hashMap.setKey('jacket', 'blue')
+ hashMap.setKey('kite', 'pink')
+hashMap.setKey('apple', 'blue')
+hashMap.setKey('moon', 'silver')
+hashMap.setKey('myPet', 'Niloo')
+console.log(hashMap.setKey('zebra', 'striped'));
+console.log('This is the length', hashMap.lengthOfHashMap())
+
+
 
