@@ -50,19 +50,7 @@ class HashSet {
         return this.buckets;
     };
 
-    getKey(key) {
-        const bucketIndex = this.hash(key);
-        if(this.buckets[bucketIndex]) {
-            const keyIndex = this.buckets[bucketIndex].findListKeyIndex(key)
-            if(!this.buckets[bucketIndex].findListKeyIndex(key)) {
-                return this.buckets[bucketIndex].getNodeAtIndex(keyIndex).key;
-            } else {
-               return null;
-            }
-        } else {
-            return null;
-        };
-    };
+
 
     hasKey(key) {
         const bucketIndex = this.hash(key);
