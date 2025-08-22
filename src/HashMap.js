@@ -22,11 +22,12 @@ class HashMap {
 
     setKey(key, value) {
         const bucketIndex = this.hash(key);
+        // If the keys bucket index  is empty, create and insert linked list and add node with bucketIndex, key and value and update size
         if(!this.buckets[bucketIndex]) {     
             this.buckets[bucketIndex] = new LinkedList();
             this.buckets[bucketIndex].prependNode(bucketIndex,key,value);
             this.size++;
-        } else {
+        } else { // If there is a collision, check for duplicate keys and and add node with bucketIndex, key and value and update size
             if (this.buckets[bucketIndex].listContainsKey(key)) {
                 const duplicateKeyIndex = this.buckets[bucketIndex].findListKeyIndex(key);
                 this.buckets[bucketIndex].removeNodeAt(duplicateKeyIndex);
@@ -36,7 +37,7 @@ class HashMap {
                 this.size++;
             }; 
         };  
-        
+        // If the size of hashmap is greater than threshold, double the capacity and rehash
         if (this.size > (this.loadFactor * this.capacity)) {
             this.capacity = this.capacity * 2;
             const hashMapEntries = this.returnHashMapEntries();
@@ -74,12 +75,13 @@ class HashMap {
             };
         } else {
             return false;
-        }        
+        };      
      
     }
 
     removeKey(key) {
         const bucketIndex = this.hash(key);
+        // If the bucketindex is populated (key in bucket), remove key and update size
         if(this.buckets[bucketIndex]) {
             const keyIndex = this.buckets[bucketIndex].findListKeyIndex(key)
             if(!this.buckets[bucketIndex].findListKeyIndex(key)) {
@@ -112,7 +114,7 @@ class HashMap {
                 while (currentNode) {
                     hashMapKeys.push(currentNode.key)
                     currentNode = currentNode.nextNode;
-                }
+                };
             }
         }
         return hashMapKeys;
@@ -122,12 +124,12 @@ class HashMap {
         const hashMapKeys = [];
         for (let i = 0; i < this.buckets.length; i++) {
             if (this.buckets[i]) {
-                let currentNode = this.buckets[i].head
+                let currentNode = this.buckets[i].head;
                 while (currentNode) {
                     hashMapKeys.push(currentNode.value);
                     currentNode = currentNode.nextNode;
-                }
-            }
+                };
+            };
         }
         return hashMapKeys;
     };
@@ -136,19 +138,13 @@ class HashMap {
         const hashMapEntries = [];
         const hashMapKeys = this.returnKeysArray();
         const hashMapValues = this.returnValuesArray();
+        // Add each key value pair to hashMapEntries array
         for (let i = 0;i < hashMapKeys.length; i++) {
             hashMapEntries[i] = [hashMapKeys[i], hashMapValues[i]]
         }
         return hashMapEntries;
 
     }
-
-
-
-
-
-
-
-}
+};
 
 export default HashMap;
