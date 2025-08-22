@@ -94,7 +94,21 @@ class HashMap {
 
     clear() {
         this.buckets = new Array(16).fill(null);
-    }
+    };
+
+   returnKeysArray() {
+        let hashMapKeys = [];
+        for (let i = 0; i < this.buckets.length; i++) {
+            if (this.buckets[i]) {
+                let currentNode = this.buckets[i].head
+                while (currentNode) {
+                     hashMapKeys.push(currentNode.key)
+                    currentNode = currentNode.nextNode;
+                }
+            }
+        }
+        return hashMapKeys;
+    };
 
 
 
