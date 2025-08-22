@@ -7,6 +7,7 @@ class HashMap {
         this.buckets = new Array(16).fill(null);
         this.loadFactor = 0.8;
         this.capacity = 16;
+        this.size = 0;
     };
 
     hash(key) {
@@ -24,13 +25,16 @@ class HashMap {
         if(!this.buckets[bucketIndex]) {     
             this.buckets[bucketIndex] = new LinkedList();
             this.buckets[bucketIndex].appendNode(bucketIndex,key,value);
+            this.size++;
         } else {
             if (this.buckets[bucketIndex].listContainsKey(key)) {
                 const duplicateKeyIndex = this.buckets[bucketIndex].findListKeyIndex(key);
                 this.buckets[bucketIndex].removeNodeAt(duplicateKeyIndex);
-                this.buckets[bucketIndex].appendNode(bucketIndex,key,value);   
+                this.buckets[bucketIndex].appendNode(bucketIndex,key,value); 
+                this.size++;  
             } else {
                 this.buckets[bucketIndex].appendNode(bucketIndex,key,value);
+                this.size++;
             }; 
         };  
 
@@ -75,15 +79,19 @@ class HashMap {
             if(!this.buckets[bucketIndex].findListKeyIndex(key)) {
                 this.buckets[bucketIndex].removeNodeAt(keyIndex);
                 if (this.buckets[bucketIndex].head === null) this.buckets[bucketIndex] = null;
+                this.size--;
                 return true;
             } else {
                return false;
             }
         } else {
-            console.log('This null returned')
             return false
         }
     };
+
+    lengthOfHashMap() {
+        return this.size;
+    }
 
 
 
