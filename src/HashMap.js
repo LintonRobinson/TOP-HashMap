@@ -5,7 +5,7 @@ const linkedList = new LinkedList().appendNode()
 class HashMap {
     constructor() {
         this.buckets = new Array(16).fill(null);
-        this.loadFactor = 0.8;
+        this.loadFactor = 0.75;
         this.capacity = 16;
         this.size = 0;
     };
@@ -30,8 +30,7 @@ class HashMap {
             if (this.buckets[bucketIndex].listContainsKey(key)) {
                 const duplicateKeyIndex = this.buckets[bucketIndex].findListKeyIndex(key);
                 this.buckets[bucketIndex].removeNodeAt(duplicateKeyIndex);
-                this.buckets[bucketIndex].appendNode(bucketIndex,key,value); 
-                this.size++;  
+                this.buckets[bucketIndex].appendNode(bucketIndex,key,value);   
             } else {
                 this.buckets[bucketIndex].appendNode(bucketIndex,key,value);
                 this.size++;
@@ -91,7 +90,13 @@ class HashMap {
 
     lengthOfHashMap() {
         return this.size;
+    };
+
+    clear() {
+        this.buckets = new Array(16).fill(null);
     }
+
+
 
 
 
